@@ -1,3 +1,4 @@
+import 'package:blood_donation/screens/home/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,11 +10,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'blood donation',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
-      // home: Home(title: 'Flutter Demo Home Page'),
-    );
+        debugShowCheckedModeBanner: false,
+        color: Colors.red,
+        title: 'blood donation',
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.red[400],
+          primarySwatch: Colors.red,
+        ),
+        initialRoute: '/',
+        // home: Home(title: 'Flutter Demo Home Page'),
+        routes: {
+          '/': (context) => Home(
+                title: 'Home',
+              ),
+        });
   }
 }
