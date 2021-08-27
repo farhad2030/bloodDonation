@@ -1,6 +1,9 @@
+import 'package:blood_donation/model/user.dart';
 import 'package:blood_donation/screens/home/homeTile.dart';
 import 'package:blood_donation/screens/shared/drawer/drawerWidget.dart';
+import 'package:blood_donation/services/db.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   final String title;
@@ -13,27 +16,37 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(child: Text(widget.title)),
-      ),
-      drawer: DrawerWidget(),
-      // drawerScrimColor: Colors.green,
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              HomeTile(),
-              HomeTile(),
-              HomeTile(),
-              HomeTile(),
-              HomeTile(),
-              HomeTile(),
-              HomeTile(),
-            ],
-          ),
+    DatabaseService _db = DatabaseService();
+
+    return StreamProvider<List<DonorModel>>(
+      create: (_) => _db.donorData,
+      initialData: [
+        DonorModel(
+            name: 'name',
+            phone: 'phone',
+            age: 'age',
+            bloodGroup: '-',
+            gender: 'gender',
+            lastDonateDate: 'lastDonateDate',
+            address: 'address')
+      ],
+      child: Scaffold(
+        appBar: AppBar(
+          title: Center(child: Text(widget.title)),
         ),
+        drawer: DrawerWidget(),
+        // drawerScrimColor: Colors.green,
+        body: Container(
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            child: Consumer<List<DonorModel>>(
+              builder: (context, a, index) {
+                return ListView.builder(
+                    itemCount: a.length,
+                    itemBuilder: (BuildContext context, index) {
+                      return HomeTile(singleDonor: a[index]);
+                    });
+              },
+            )),
       ),
     );
   }

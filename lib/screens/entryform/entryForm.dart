@@ -117,6 +117,27 @@ class _EntryFormState extends State<EntryForm> {
                       ),
                 ),
                 Text(
+                  'Gender : ',
+                  style: TextStyle(color: Colors.white),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropdownButtonFormField(
+                      decoration: continputDecoration('Select your Gender'),
+                      // value: _gender,
+                      items: genderOptions.map(
+                        (option) {
+                          return DropdownMenuItem<String>(
+                            child: Text(option),
+                            value: option,
+                          );
+                        },
+                      ).toList(),
+                      onChanged: (val) => {}
+                      // (setState(() => _gender = val.toString())),
+                      ),
+                ),
+                Text(
                   'Blood group : ',
                   style: TextStyle(color: Colors.white),
                 ),
