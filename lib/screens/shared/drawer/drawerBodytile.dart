@@ -16,7 +16,7 @@ class DrawerBodyTile extends StatelessWidget {
       children: [
         TextButton.icon(
             onPressed: () {
-              Navigator.pushReplacementNamed(context, '/');
+              Navigator.pushReplacementNamed(context, route);
             },
             icon: Icon(
               icon,

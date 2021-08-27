@@ -1,3 +1,4 @@
+import 'package:blood_donation/screens/home/homeTile.dart';
 import 'package:blood_donation/screens/shared/drawer/drawerWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -19,10 +20,18 @@ class _HomeState extends State<Home> {
       drawer: DrawerWidget(),
       // drawerScrimColor: Colors.green,
       body: Container(
-        // color: ,
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: SingleChildScrollView(
           child: Column(
-            children: [Text('data')],
+            children: [
+              HomeTile(),
+              HomeTile(),
+              HomeTile(),
+              HomeTile(),
+              HomeTile(),
+              HomeTile(),
+              HomeTile(),
+            ],
           ),
         ),
       ),

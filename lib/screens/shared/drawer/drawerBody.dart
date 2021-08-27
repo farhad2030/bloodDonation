@@ -24,7 +24,9 @@ class _DrawerBodyState extends State<DrawerBody> {
                 title: 'Delete Account',
                 icon: Icons.delete_forever),
             DrawerBodyTile(
-                route: '/', title: 'App version', icon: Icons.verified),
+                route: 'entryForm/',
+                title: 'App version',
+                icon: Icons.verified),
           ],
         ),
       ),

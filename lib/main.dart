@@ -1,3 +1,6 @@
+import 'package:blood_donation/screens/authentication/login.dart';
+import 'package:blood_donation/screens/authentication/register.dart';
+import 'package:blood_donation/screens/entryform/entryForm.dart';
 import 'package:blood_donation/screens/home/home.dart';
 import 'package:flutter/material.dart';
 
@@ -20,9 +23,10 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         // home: Home(title: 'Flutter Demo Home Page'),
         routes: {
-          '/': (context) => Home(
-                title: 'Home',
-              ),
+          '/': (context) => Home(title: 'Home'),
+          'login/': (context) => Login(title: 'Login'),
+          'register/': (context) => Register(title: 'Register'),
+          'entryForm/': (context) => EntryForm(title: 'Entry Form'),
         });
   }
 }

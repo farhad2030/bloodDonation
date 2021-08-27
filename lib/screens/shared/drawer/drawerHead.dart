@@ -39,12 +39,17 @@ class _DrawerHeadState extends State<DrawerHead> {
                 ),
                 Align(
                   alignment: Alignment.topRight,
-                  child: CircleAvatar(
-                    radius: 15,
-                    child: Icon(
-                      Icons.edit,
-                      color: Colors.amber,
-                      size: 15,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacementNamed(context, 'login/');
+                    },
+                    child: CircleAvatar(
+                      radius: 15,
+                      child: Icon(
+                        Icons.edit,
+                        color: Colors.amber,
+                        size: 15,
+                      ),
                     ),
                   ),
                 )
