@@ -1,5 +1,6 @@
+import 'package:blood_donation/model/user.dart';
 import 'package:blood_donation/screens/authentication/authShareWidget.dart';
-import 'package:blood_donation/screens/shared/drawer/drawerWidget.dart';
+import 'package:blood_donation/services/authServices.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -11,69 +12,126 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final _formkey = GlobalKey<FormState>();
+
+  final _auth = AuthServices();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  String error = '';
+  bool isloding = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text(widget.title)),
       ),
-      drawer: DrawerWidget(),
       // drawerScrimColor: Colors.green,
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               circleLogin,
+              SizedBox(height: 20),
               Form(
+                  key: _formkey,
                   child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration: continputDecoration('Enter your email'),
-                      validator: (val) {
-                        if (val != null) {
-                          if (val.contains('@'))
-                            return 'Email must contains @ ';
-                        } else
-                          return 'Email is required';
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      obscureText: true,
-                      decoration: continputDecoration('Enter your password'),
-                      validator: (val) {
-                        if (val != null) {
-                          if (val.length <= 8)
-                            return ' Password must 8 character or large';
-                        } else
-                          return 'password is required';
-                      },
-                    ),
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: Colors.red[900]),
-                    onPressed: () {},
-                    child: Text('Register'),
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, 'login/');
-                      },
-                      child:
-                          togolText('Already have an account? Please login')),
-                ],
-              ))
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Email :'),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          controller: _emailController,
+                          decoration: continputDecoration('Enter your email'),
+                          validator: (val) {
+                            if (val != null) {
+                              if (!val.contains('@'))
+                                return 'Email must contains @ ';
+                            } else if (val == null) return 'Email is required';
+                          },
+                        ),
+                      ),
+                      Text('Password :'),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          controller: _passwordController,
+                          obscureText: true,
+                          decoration:
+                              continputDecoration('Enter your password'),
+                          validator: (val) {
+                            if (val != null) {
+                              if (val.length < 8)
+                                return ' Password must 8 character or large';
+                            } else
+                              return 'password is required';
+                          },
+                        ),
+                      ),
+                      Text(error),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.red[900]),
+                            onPressed: () {
+                              if (_formkey.currentState!.validate())
+                                setState(() {
+                                  isloding = true;
+                                });
+                              _auth
+                                  .registerWithEmailAndPassword(
+                                      email: _emailController.text,
+                                      password: _passwordController.text)
+                                  .then((value) => {
+                                        setState(() {
+                                          isloding = false;
+                                        }),
+                                        if (value.runtimeType == UserModel)
+                                          Navigator.pushReplacementNamed(
+                                              context, '/')
+                                        else
+                                          setState(() {
+                                            print(value);
+                                            error = value.toString();
+                                          })
+                                      });
+                            },
+                            child: Text('Register'),
+                          ),
+                        ],
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(context, 'login/');
+                          },
+                          child: togolText(
+                              'Already have an account? Please login')),
+                      if (isloding == true) ...[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(color: Colors.white)
+                          ],
+                        ),
+                      ],
+                    ],
+                  ))
             ],
           ),
         ),
       ),
     );
   }
+
+  // Widget _buildChild() {
+  //   if (isloding) {
+  //     return Row(
+  //       children: [CircularProgressIndicator()],
+  //     );
+  //   }
+  //   return Text('');
+  // }
 }

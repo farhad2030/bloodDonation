@@ -27,6 +27,8 @@ class _DrawerBodyState extends State<DrawerBody> {
                 route: 'entryForm/',
                 title: 'App version',
                 icon: Icons.verified),
+            DrawerBodyTile(
+                route: 'logout', title: 'Logout', icon: Icons.logout_sharp),
           ],
         ),
       ),

@@ -1,5 +1,6 @@
+import 'package:blood_donation/model/user.dart';
 import 'package:blood_donation/screens/authentication/authShareWidget.dart';
-import 'package:blood_donation/screens/shared/drawer/drawerWidget.dart';
+import 'package:blood_donation/services/authServices.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -11,44 +12,106 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final _formkey = GlobalKey<FormState>();
+
+  final _auth = AuthServices();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  String error = '';
+  bool isloding = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text(widget.title)),
       ),
-      drawer: DrawerWidget(),
       // drawerScrimColor: Colors.green,
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-        child: Expanded(
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+        child: Center(
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 circleLogin,
+                SizedBox(height: 20),
                 Form(
+                  key: _formkey,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text('Email :'),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
-                          decoration: continputDecoration('Enter your name'),
+                          controller: _emailController,
+                          decoration: continputDecoration('Enter your email'),
+                          validator: (val) {
+                            if (val != null) {
+                              if (val.isEmpty) return 'Enter valid email';
+                              if (!val.contains('@gmail.com'))
+                                return '@gmail.com must contains';
+                            } else
+                              return 'Enter your email';
+                          },
                         ),
                       ),
+                      Text('Password :'),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
+                          controller: _passwordController,
                           decoration:
                               continputDecoration('Enter your password'),
+                          validator: (val) {
+                            if (val != null) {
+                              if (val.isEmpty || val.length < 8)
+                                return 'Password must contains 8 character';
+                            } else
+                              return 'Enter a password';
+                          },
                         ),
                       ),
-                      ElevatedButton(
-                        style:
-                            ElevatedButton.styleFrom(primary: Colors.red[900]),
-                        onPressed: () {},
-                        child: Text('Login'),
+                      Text(error),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.red[400],
+                              onPrimary: Colors.white,
+                            ),
+                            onPressed: () {
+                              if (_formkey.currentState!.validate()) {
+                                print('login clicked');
+                                print('email:${_emailController.text}');
+                                print('email:${_passwordController.text}');
+                                setState(() {
+                                  isloding = true;
+                                });
+                                _auth
+                                    .signinWithEmailAndPassword(
+                                        email: _emailController.text,
+                                        password: _passwordController.text)
+                                    .then((value) => {
+                                          setState(() {
+                                            isloding = false;
+                                          }),
+                                          if (value.runtimeType == UserModel)
+                                            Navigator.pushReplacementNamed(
+                                                context, '/')
+                                          else
+                                            setState(() {
+                                              print(value);
+                                              error = value.toString();
+                                            })
+                                        });
+                              }
+                            },
+                            child: Text('Login'),
+                          ),
+                        ],
                       ),
                       TextButton(
                           onPressed: () {
@@ -57,6 +120,14 @@ class _LoginState extends State<Login> {
                           },
                           child: togolText(
                               'Already have an account? Please login')),
+                      if (isloding == true) ...[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(color: Colors.white)
+                          ],
+                        ),
+                      ],
                     ],
                   ),
                 )

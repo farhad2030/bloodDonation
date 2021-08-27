@@ -60,6 +60,7 @@ class _EntryFormState extends State<EntryForm> {
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Form(
+          key: _formkey,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
