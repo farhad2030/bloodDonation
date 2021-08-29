@@ -22,6 +22,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             children: [
               DrawerHead(),
               DrawerBody(),
+              // Consumer<DocumentSnapshot>(
+              //   builder: (context, a, index) {
+              //     print(a['name']);
+              //     return Text('data');
+              //   },
+              // )
             ],
           ),
         ),

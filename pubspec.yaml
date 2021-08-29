@@ -33,6 +33,7 @@ dependencies:
   firebase_auth: ^3.1.0 #firebase authentication
   cloud_firestore: ^2.5.1 #firestor database
   provider: ^6.0.0 #state management
+  intl: ^0.17.0 #formet time
 
 dev_dependencies:
   flutter_test:

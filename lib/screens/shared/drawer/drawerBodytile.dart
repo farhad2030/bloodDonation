@@ -1,4 +1,3 @@
-import 'package:blood_donation/services/authServices.dart';
 import 'package:flutter/material.dart';
 
 class DrawerBodyTile extends StatelessWidget {
@@ -12,18 +11,17 @@ class DrawerBodyTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AuthServices _auth = AuthServices();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextButton.icon(
             onPressed: () {
-              if (route != 'logout') {
-                Navigator.pushReplacementNamed(context, route);
-              } else if (route == 'logout') {
-                _auth.signOut();
-                Navigator.pushReplacementNamed(context, 'authCheck/');
-              }
+              // if (route != 'logout') {
+              Navigator.pushReplacementNamed(context, route);
+              // } else if (route == 'logout') {
+              //   _auth.signOut().then((value) =>
+              //       Navigator.pushReplacementNamed(context, 'authCheck/'));
+              // }
             },
             icon: Icon(
               icon,

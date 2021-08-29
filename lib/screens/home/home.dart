@@ -1,6 +1,7 @@
 import 'package:blood_donation/model/user.dart';
 import 'package:blood_donation/screens/home/homeTile.dart';
 import 'package:blood_donation/screens/shared/drawer/drawerWidget.dart';
+import 'package:blood_donation/services/authServices.dart';
 import 'package:blood_donation/services/db.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    AuthServices _auth = AuthServices();
     DatabaseService _db = DatabaseService();
 
     return StreamProvider<List<DonorModel>>(
@@ -33,6 +35,16 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         appBar: AppBar(
           title: Center(child: Text(widget.title)),
+          actions: [
+            IconButton(
+              onPressed: () {
+                print('click');
+                _auth.signOut().then((value) =>
+                    Navigator.pushReplacementNamed(context, 'authCheck/'));
+              },
+              icon: Icon(Icons.logout_outlined),
+            )
+          ],
         ),
         drawer: DrawerWidget(),
         // drawerScrimColor: Colors.green,

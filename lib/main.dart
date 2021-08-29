@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
             'home/': (context) => Home(title: 'Flutter Demo Home Page'),
             'register/': (context) => Register(title: 'Register'),
             'entryForm/': (context) => EntryForm(title: 'Entry Form'),
+            'authCheck/': (context) => AuthCheck(),
           }),
     );
   }

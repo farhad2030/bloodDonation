@@ -6,19 +6,19 @@ class DatabaseService {
   DatabaseService({this.uid});
 
 //collection reference
-  final CollectionReference userDataCollection =
+  final CollectionReference donorDataCollection =
       FirebaseFirestore.instance.collection('donorData');
 
   Future<void> updateUserData(
     String name,
     String phone,
     String age,
-    String bloodGroup,
-    String gender,
-    String lastDonateDate,
-    String address,
+    String? bloodGroup,
+    String? gender,
+    String? lastDonateDate,
+    String? address,
   ) async {
-    return await userDataCollection.doc(uid).set({
+    return await donorDataCollection.doc(uid).set({
       'name': name,
       'phone': phone,
       'age': age,
@@ -53,9 +53,39 @@ class DatabaseService {
 
   Stream<List<DonorModel>> get donorData {
     print('stream ');
-
     print('stream test');
-    print(userDataCollection.snapshots());
-    return userDataCollection.snapshots().map(_userDatalist);
+    print(donorDataCollection.snapshots());
+    return donorDataCollection.snapshots().map(_userDatalist);
+  }
+
+  Stream<DonorModel> get singleDonor {
+    return donorDataCollection.doc(uid).snapshots().map((event) => DonorModel(
+        name: event['name'],
+        phone: event['phone'],
+        age: event['age'],
+        bloodGroup: event['bloodGroup'],
+        gender: event['gender'],
+        lastDonateDate: event['lastDonateDate'],
+        address: event['address']));
+  }
+
+  Future<DonorModel> sDonor() {
+    return donorDataCollection.doc(uid).get().then((event) => DonorModel(
+        name: event['name'],
+        phone: event['phone'],
+        age: event['age'],
+        bloodGroup: event['bloodGroup'],
+        gender: event['gender'],
+        lastDonateDate: event['lastDonateDate'],
+        address: event['address']));
+
+    // then((event) => DonorModel(
+    //     name: event['name'],
+    //     phone: event['phone'],
+    //     age: event['age'],
+    //     bloodGroup: event['bloodGroup'],
+    //     gender: event['gender'],
+    //     lastDonateDate: event['lastDonateDate'],
+    //     address: event['address']));
   }
 }
