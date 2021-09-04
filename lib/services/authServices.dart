@@ -62,6 +62,7 @@ class AuthServices {
     }
   }
 
+//get user auth stream
   Stream<UserModel?> get user {
     return _auth.authStateChanges().map(_firebaseUsertoUserModel);
   }
