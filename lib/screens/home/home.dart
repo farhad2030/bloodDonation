@@ -76,10 +76,11 @@ class _HomeState extends State<Home> {
     // Create anonymous function:
     () async {
       await _performYourTask();
-      setState(() {
-        //   });
-        // Update your UI with the desired changes.
-      });
+      if (this.mounted) {
+        setState(() {
+          // Your state change code goes here
+        });
+      }
     }();
   }
 

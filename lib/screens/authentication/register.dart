@@ -31,7 +31,18 @@ class _RegisterState extends State<Register> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              circleLogin,
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                      image: AssetImage(
+                        'assets/images/login_register.png',
+                      ),
+                      fit: BoxFit.fill),
+                ),
+              ),
               SizedBox(height: 20),
               Form(
                   key: _formkey,
@@ -125,13 +136,4 @@ class _RegisterState extends State<Register> {
       ),
     );
   }
-
-  // Widget _buildChild() {
-  //   if (isloding) {
-  //     return Row(
-  //       children: [CircularProgressIndicator()],
-  //     );
-  //   }
-  //   return Text('');
-  // }
 }

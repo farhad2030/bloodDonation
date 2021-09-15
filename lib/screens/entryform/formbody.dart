@@ -2,17 +2,32 @@ import 'package:blood_donation/model/user.dart';
 import 'package:blood_donation/screens/authentication/authShareWidget.dart';
 import 'package:blood_donation/services/db.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class FormBody extends StatefulWidget {
-  const FormBody({Key? key}) : super(key: key);
-
+  final String? uid;
+  FormBody({required this.uid});
   @override
   _FormBodyState createState() => _FormBodyState();
 }
 
 class _FormBodyState extends State<FormBody> {
   final _formkey = GlobalKey<FormState>();
+
+  late DatabaseService _db = DatabaseService(uid: widget.uid);
+
+  late Future<DonorModel> ddata = _db.sDonor().then((value) => a = value);
+
+  // ddata.then((value) => a = value);
+
+  static DonorModel a = DonorModel(
+      name: '-',
+      phone: '-',
+      age: '-',
+      gender: '-',
+      bloodGroup: '-',
+      address: '-',
+      lastDonateDate: '-');
 
   List<String> genderOptions = ['Male', 'Female', 'Other', '-'];
   List<String> bloodGroupOptions = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', '-'];
@@ -28,13 +43,29 @@ class _FormBodyState extends State<FormBody> {
     '-'
   ];
 
-  DateTime _lastDonateDate = DateTime.parse('0000-00-00 00:00:00.000');
+  _loadSingleData() {
+    return _db.sDonor().then((value) {
+      a = value;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    _lastDonateDate = DateTime.parse('0000-00-00 00:00:00.000');
+
+    // Create anonymous function:
+    () async {
+      await _loadSingleData();
+      if (this.mounted) {
+        setState(() {
+          // Your state change code goes here
+        });
+      }
+    }();
   }
+
+  String _lastDonateDate =
+      a.lastDonateDate == '-' ? DateTime.now().toString() : a.lastDonateDate;
 
   TextEditingController _nameController =
       TextEditingController(text: a.name == '-' ? null : a.name);
@@ -47,25 +78,12 @@ class _FormBodyState extends State<FormBody> {
   String? _bloodGroup = a.bloodGroup == '-' ? null : a.bloodGroup;
   String? _address = a.address == '-' ? null : a.address;
 
-  static DonorModel a = DonorModel(
-      name: '-',
-      phone: '-',
-      age: '-',
-      gender: '-',
-      bloodGroup: '-',
-      address: '-',
-      lastDonateDate: '0000-00-00 00:00:00.000');
+  bool? isDonate = a.lastDonateDate == '-' ? false : true; //for date checkbox
+
+  var dateFormater = DateFormat('dd-MM-yyyy');
 
   @override
   Widget build(BuildContext context) {
-//
-    UserModel? _user = Provider.of<UserModel?>(context);
-    DatabaseService _db = DatabaseService(uid: _user!.uid);
-
-    Future<DonorModel> ddata = _db.sDonor();
-
-    ddata.then((value) => a = value);
-
     return Form(
       key: _formkey,
       child: SingleChildScrollView(
@@ -193,35 +211,46 @@ class _FormBodyState extends State<FormBody> {
                         (setState(() => _address = val.toString())),
                       }),
             ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              padding: EdgeInsets.symmetric(vertical: 0),
-              color: Colors.white,
-              child: ListTile(
-                // selected: false,
-                tileColor: Colors.white,
-                title: Text(
-
-                    //
-                    'Date : ${
-                    //
-                    (_lastDonateDate == DateTime.parse('0000-00-00 00:00:00.000') && (a.lastDonateDate == '-')
-                        //
-                        ? 'Select Date'
-                        //
-                        : (_lastDonateDate == DateTime.parse('0000-00-00 00:00:00.000') && a.lastDonateDate != '-'
-                            //
-                            ? a.lastDonateDate : //
-                            _lastDonateDate
-                        //
-                        ))}'),
-
-                trailing: Icon(Icons.calendar_today),
-                onTap: () => _pickTime(a.lastDonateDate == '-'
-                    ? DateTime.now()
-                    : DateTime.parse(a.lastDonateDate)),
-              ),
+            Row(
+              children: [
+                Text(
+                  'Last Donate Date : ',
+                  style: TextStyle(color: Colors.white),
+                ),
+                Checkbox(
+                  value: isDonate,
+                  onChanged: (value) {
+                    setState(() {
+                      this.isDonate = value;
+                    });
+                  },
+                ),
+              ],
             ),
+            if (isDonate == true)
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                padding: EdgeInsets.symmetric(vertical: 0),
+                color: Colors.white,
+                child: ListTile(
+                  // selected: false,
+                  tileColor: Colors.white,
+                  title: Text(
+
+                      //
+                      a.lastDonateDate == "-"
+                          ? 'Select Date'
+                          : DateFormat('dd MMMM yyyy') //hh:mm a//
+                              .format(DateTime.parse(_lastDonateDate))),
+
+                  trailing: Icon(Icons.calendar_today),
+                  //
+                  onTap: () => _pickTime(_lastDonateDate == '-'
+                      ? DateTime.now()
+                      : DateTime.parse(_lastDonateDate)),
+                  //
+                ),
+              ),
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Colors.red[900]),
@@ -242,7 +271,9 @@ class _FormBodyState extends State<FormBody> {
                         _ageController.text,
                         _bloodGroup,
                         _gender,
-                        _lastDonateDate.toString(),
+                        isDonate == true && _lastDonateDate != '-'
+                            ? _lastDonateDate.toString()
+                            : '-',
                         _address);
                   }
                 },
@@ -255,16 +286,16 @@ class _FormBodyState extends State<FormBody> {
     );
   }
 
-  _pickTime(intDate) async {
+  _pickTime(DateTime initDate) async {
     DateTime? d = await showDatePicker(
       context: context,
-      initialDate: intDate,
+      initialDate: initDate,
       firstDate: DateTime(DateTime.now().year - 95),
       lastDate: DateTime.now(),
     );
     if (d != null) {
       setState(() {
-        _lastDonateDate = d;
+        _lastDonateDate = d.toString();
         print('date d: $d');
 
         print('date last : $_lastDonateDate');

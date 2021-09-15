@@ -1,6 +1,7 @@
 import 'package:blood_donation/model/user.dart';
 import 'package:blood_donation/services/db.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class DrawerHead extends StatefulWidget {
@@ -111,9 +112,16 @@ class _DrawerHeadState extends State<DrawerHead> {
                       Text('Last Donation Date :',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold)),
-                      Text(a.lastDonateDate,
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold)),
+                      Text(
+                        a.lastDonateDate == "-"
+                            ? 'Select Date'
+                            : DateFormat('dd MMMM yyyy') //hh:mm a//
+                                .format(DateTime.parse(a.lastDonateDate)),
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ],
                   ),
                 ),

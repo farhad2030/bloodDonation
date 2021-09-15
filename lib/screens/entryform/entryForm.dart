@@ -1,7 +1,9 @@
+import 'package:blood_donation/model/user.dart';
 import 'package:blood_donation/screens/entryform/formbody.dart';
 import 'package:blood_donation/screens/shared/drawer/drawerWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class EntryForm extends StatefulWidget {
   final String title;
@@ -24,6 +26,7 @@ class _EntryFormState extends State<EntryForm> {
 
   @override
   Widget build(BuildContext context) {
+    UserModel? _user = Provider.of<UserModel?>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +35,9 @@ class _EntryFormState extends State<EntryForm> {
       drawer: DrawerWidget(),
       body: Container(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: FormBody()),
+          child: FormBody(
+            uid: _user!.uid,
+          )),
     );
   }
 }

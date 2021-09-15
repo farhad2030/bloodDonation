@@ -3,15 +3,15 @@ import 'package:blood_donation/screens/authentication/authShareWidget.dart';
 import 'package:blood_donation/services/authServices.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatefulWidget {
+class ForgetPassword extends StatefulWidget {
   final String title;
-  const Login({Key? key, required this.title}) : super(key: key);
+  const ForgetPassword({Key? key, required this.title}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  _ForgetPasswordState createState() => _ForgetPasswordState();
 }
 
-class _LoginState extends State<Login> {
+class _ForgetPasswordState extends State<ForgetPassword> {
   final _formkey = GlobalKey<FormState>();
 
   final _auth = AuthServices();
@@ -68,22 +68,6 @@ class _LoginState extends State<Login> {
                           },
                         ),
                       ),
-                      Text('Password :'),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          controller: _passwordController,
-                          decoration:
-                              continputDecoration('Enter your password'),
-                          validator: (val) {
-                            if (val != null) {
-                              if (val.isEmpty || val.length < 8)
-                                return 'Password must contains 8 character';
-                            } else
-                              return 'Enter a password';
-                          },
-                        ),
-                      ),
                       Text(error),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -120,7 +104,7 @@ class _LoginState extends State<Login> {
                                         });
                               }
                             },
-                            child: Text('Login'),
+                            child: Text('Reset password ! '),
                           ),
                         ],
                       ),
@@ -131,12 +115,6 @@ class _LoginState extends State<Login> {
                           },
                           child: togolText(
                               'Already have an account? Please login')),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(
-                                context, 'forgetPassword/');
-                          },
-                          child: togolText('Are you forgot your password ? ')),
                       if (isloding == true) ...[
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
