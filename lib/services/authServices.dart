@@ -9,6 +9,11 @@ class AuthServices {
     return user != null ? UserModel(uid: user.uid) : null;
   }
 
+//get user auth stream
+  Stream<UserModel?> get user {
+    return _auth.authStateChanges().map(_firebaseUsertoUserModel);
+  }
+
   //register with email & pass
 
   Future registerWithEmailAndPassword(
@@ -62,8 +67,12 @@ class AuthServices {
     }
   }
 
-//get user auth stream
-  Stream<UserModel?> get user {
-    return _auth.authStateChanges().map(_firebaseUsertoUserModel);
+  Future forgotPass({required String email}) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return print('all ok sending email');
+    } on FirebaseAuthException catch (e) {
+      return e.code;
+    }
   }
 }

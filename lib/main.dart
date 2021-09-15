@@ -1,6 +1,6 @@
 import 'package:blood_donation/model/user.dart';
 import 'package:blood_donation/screens/authCheck.dart';
-import 'package:blood_donation/screens/authentication/forgetPassword.dart';
+import 'package:blood_donation/screens/authentication/forgotPassword.dart';
 import 'package:blood_donation/screens/authentication/login.dart';
 import 'package:blood_donation/screens/authentication/register.dart';
 import 'package:blood_donation/screens/entryform/entryForm.dart';
@@ -39,8 +39,8 @@ class MyApp extends StatelessWidget {
             'register/': (context) => Register(title: 'Register'),
             'entryForm/': (context) => EntryForm(title: 'Entry Form'),
             'authCheck/': (context) => AuthCheck(),
-            'forgetPassword/': (context) =>
-                ForgetPassword(title: 'Forget password'),
+            'forgotPassword/': (context) =>
+                ForgotPassword(title: 'Forgot password'),
           }),
     );
   }

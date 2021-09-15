@@ -1,6 +1,5 @@
 import 'package:blood_donation/model/user.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class HomeTile extends StatefulWidget {
   final DonorModel singleDonor;
@@ -25,7 +24,7 @@ class _HomeTileState extends State<HomeTile> {
     } else
       difference = 0;
 
-    var formatter = new DateFormat('dd-MM-yyyy');
+    // var formatter = new DateFormat('dd-MM-yyyy');
     // String formatedDate = formatter.format(_lastDonateDate);
 
     final tileLeading = Container(

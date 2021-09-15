@@ -40,7 +40,6 @@ class _HomeState extends State<Home> {
   // }
 
   void _findDonor(String searchText) {
-    List<DonorModel> bgresults = [];
     List<DonorModel> results = [];
 
     if (searchText.isEmpty) {

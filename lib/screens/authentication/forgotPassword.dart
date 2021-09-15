@@ -3,20 +3,19 @@ import 'package:blood_donation/screens/authentication/authShareWidget.dart';
 import 'package:blood_donation/services/authServices.dart';
 import 'package:flutter/material.dart';
 
-class ForgetPassword extends StatefulWidget {
+class ForgotPassword extends StatefulWidget {
   final String title;
-  const ForgetPassword({Key? key, required this.title}) : super(key: key);
+  const ForgotPassword({Key? key, required this.title}) : super(key: key);
 
   @override
-  _ForgetPasswordState createState() => _ForgetPasswordState();
+  _ForgotPasswordState createState() => _ForgotPasswordState();
 }
 
-class _ForgetPasswordState extends State<ForgetPassword> {
+class _ForgotPasswordState extends State<ForgotPassword> {
   final _formkey = GlobalKey<FormState>();
 
   final _auth = AuthServices();
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
   String error = '';
   bool isloding = false;
 
@@ -81,26 +80,37 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                               if (_formkey.currentState!.validate()) {
                                 print('login clicked');
                                 print('email:${_emailController.text}');
-                                print('email:${_passwordController.text}');
                                 setState(() {
                                   isloding = true;
                                 });
                                 _auth
-                                    .signinWithEmailAndPassword(
-                                        email: _emailController.text,
-                                        password: _passwordController.text)
+                                    .forgotPass(
+                                      email: _emailController.text,
+                                    )
                                     .then((value) => {
                                           setState(() {
                                             isloding = false;
                                           }),
-                                          if (value.runtimeType == UserModel)
-                                            Navigator.pushReplacementNamed(
-                                                context, '/')
+                                          if (value == null)
+                                            {
+                                              Navigator.pushReplacementNamed(
+                                                  context, 'login/'),
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                      backgroundColor:
+                                                          Colors.green[200],
+                                                      content: Text(
+                                                        'Recovary password link is send to your email',
+                                                      )))
+                                            }
                                           else
-                                            setState(() {
-                                              print(value);
-                                              error = value.toString();
-                                            })
+                                            {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                      backgroundColor:
+                                                          Colors.red[800],
+                                                      content: Text(value)))
+                                            }
                                         });
                               }
                             },

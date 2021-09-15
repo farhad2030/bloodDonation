@@ -255,9 +255,7 @@ class _FormBodyState extends State<FormBody> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Colors.red[900]),
                 onPressed: () {
-                  if (_formkey.currentState!.validate() &&
-                      _lastDonateDate !=
-                          DateTime.parse('0000-00-00 00:00:00.000')) {
+                  if (_formkey.currentState!.validate()) {
                     print(_nameController.text);
                     print(_phoneController.text);
                     print(_ageController.text);

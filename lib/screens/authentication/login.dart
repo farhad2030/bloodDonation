@@ -124,6 +124,15 @@ class _LoginState extends State<Login> {
                           ),
                         ],
                       ),
+                      if (isloding == true) ...[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(
+                                strokeWidth: 2.0, color: Colors.white)
+                          ],
+                        ),
+                      ],
                       TextButton(
                           onPressed: () {
                             Navigator.pushReplacementNamed(
@@ -137,14 +146,6 @@ class _LoginState extends State<Login> {
                                 context, 'forgetPassword/');
                           },
                           child: togolText('Are you forgot your password ? ')),
-                      if (isloding == true) ...[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CircularProgressIndicator(color: Colors.white)
-                          ],
-                        ),
-                      ],
                     ],
                   ),
                 )
