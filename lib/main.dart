@@ -3,6 +3,7 @@ import 'package:blood_donation/screens/authCheck.dart';
 import 'package:blood_donation/screens/authentication/forgotPassword.dart';
 import 'package:blood_donation/screens/authentication/login.dart';
 import 'package:blood_donation/screens/authentication/register.dart';
+import 'package:blood_donation/screens/deleteAccount/deleteAcc.dart';
 import 'package:blood_donation/screens/entryform/entryForm.dart';
 import 'package:blood_donation/screens/home/home.dart';
 import 'package:blood_donation/services/authServices.dart';
@@ -41,6 +42,9 @@ class MyApp extends StatelessWidget {
             'authCheck/': (context) => AuthCheck(),
             'forgotPassword/': (context) =>
                 ForgotPassword(title: 'Forgot password'),
+            'deleteAccount/': (context) => DeleteAccount(
+                  title: 'Delete Account',
+                ),
           }),
     );
   }

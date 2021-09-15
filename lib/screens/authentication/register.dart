@@ -1,6 +1,7 @@
 import 'package:blood_donation/model/user.dart';
 import 'package:blood_donation/screens/authentication/authShareWidget.dart';
 import 'package:blood_donation/services/authServices.dart';
+import 'package:blood_donation/services/db.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -15,6 +16,7 @@ class _RegisterState extends State<Register> {
   final _formkey = GlobalKey<FormState>();
 
   final _auth = AuthServices();
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   String error = '';
@@ -101,8 +103,13 @@ class _RegisterState extends State<Register> {
                                           isloding = false;
                                         }),
                                         if (value.runtimeType == UserModel)
-                                          Navigator.pushReplacementNamed(
-                                              context, '/')
+                                          {
+                                            Navigator.pushReplacementNamed(
+                                                context, '/'),
+                                            DatabaseService(uid: value.uid)
+                                                .updateUserData('-', '-', '-',
+                                                    '-', '-', '-', '-')
+                                          }
                                         else
                                           setState(() {
                                             print(value);

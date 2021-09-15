@@ -1,17 +1,20 @@
 import 'package:blood_donation/model/user.dart';
 import 'package:blood_donation/screens/authentication/authShareWidget.dart';
+import 'package:blood_donation/screens/shared/drawer/drawerWidget.dart';
 import 'package:blood_donation/services/authServices.dart';
+import 'package:blood_donation/services/db.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class Login extends StatefulWidget {
+class DeleteAccount extends StatefulWidget {
   final String title;
-  const Login({Key? key, required this.title}) : super(key: key);
+  const DeleteAccount({Key? key, required this.title}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  DeleteAccountState createState() => DeleteAccountState();
 }
 
-class _LoginState extends State<Login> {
+class DeleteAccountState extends State<DeleteAccount> {
   final _formkey = GlobalKey<FormState>();
 
   final _auth = AuthServices();
@@ -22,11 +25,14 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    UserModel? _user = Provider.of<UserModel?>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text(widget.title)),
       ),
       // drawerScrimColor: Colors.green,
+      drawer: DrawerWidget(),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         child: Center(
@@ -35,15 +41,11 @@ class _LoginState extends State<Login> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                        image: AssetImage(
-                          'assets/images/login_register.png',
-                        ),
-                        fit: BoxFit.fill),
+                  child: Text(
+                    "Are you want to leave this grate work !",
+                    style: TextStyle(
+                      color: Colors.yellowAccent,
+                    ),
                   ),
                 ),
                 SizedBox(height: 20),
@@ -102,16 +104,21 @@ class _LoginState extends State<Login> {
                                   isloding = true;
                                 });
                                 _auth
-                                    .signinWithEmailAndPassword(
+                                    .reauthUser(
                                         email: _emailController.text,
                                         password: _passwordController.text)
                                     .then((value) => {
                                           setState(() {
                                             isloding = false;
                                           }),
-                                          if (value.runtimeType == UserModel)
-                                            Navigator.pushReplacementNamed(
-                                                context, '/')
+                                          if (value == null)
+                                            // Navigator.pushReplacementNamed(
+                                            //     context, '/')
+                                            {
+                                              print('authenticate'),
+                                              showAlertDialog(
+                                                  context, _user!.uid)
+                                            }
                                           else
                                             setState(() {
                                               print(value);
@@ -120,7 +127,7 @@ class _LoginState extends State<Login> {
                                         });
                               }
                             },
-                            child: Text('Login'),
+                            child: Text('Delete Account !'),
                           ),
                         ],
                       ),
@@ -133,19 +140,6 @@ class _LoginState extends State<Login> {
                           ],
                         ),
                       ],
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(
-                                context, 'register/');
-                          },
-                          child: togolText(
-                              'Already have an account? Please login')),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(
-                                context, 'forgotPassword/');
-                          },
-                          child: togolText('Are you forgot your password ? ')),
                     ],
                   ),
                 )
@@ -154,6 +148,43 @@ class _LoginState extends State<Login> {
           ),
         ),
       ),
+    );
+  }
+
+  showAlertDialog(BuildContext context, String uid) {
+    DatabaseService _db = DatabaseService(uid: uid);
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("Cancel"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+    Widget continueButton = TextButton(
+      child: Text("Delete Account"),
+      onPressed: () {
+        _auth.deleteAccount();
+        _db.deleteField(uid);
+        Navigator.pushReplacementNamed(context, 'register/');
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("AlertDialog"),
+      content: Text("Would you like to continue leaving this grate work?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

@@ -25,6 +25,7 @@ class AuthServices {
         password: password,
       );
       User? user = userCredential.user;
+
       return _firebaseUsertoUserModel(user);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
@@ -72,6 +73,35 @@ class AuthServices {
       await _auth.sendPasswordResetEmail(email: email);
       return print('all ok sending email');
     } on FirebaseAuthException catch (e) {
+      return e.code;
+    }
+  }
+
+//auth test
+  Future reauthUser({required String email, required String password}) async {
+    // Create a credential
+    AuthCredential credential =
+        EmailAuthProvider.credential(email: email, password: password);
+
+    try {
+// Reauthenticate
+      await FirebaseAuth.instance.currentUser!
+          .reauthenticateWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      return e.code;
+    }
+  }
+
+  //delete account
+  Future deleteAccount() async {
+    try {
+      await FirebaseAuth.instance.currentUser!.delete();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        print(
+            'The user must reauthenticate before this operation can be executed.');
+      }
+
       return e.code;
     }
   }

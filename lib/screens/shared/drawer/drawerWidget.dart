@@ -1,6 +1,11 @@
+import 'package:blood_donation/model/user.dart';
 import 'package:blood_donation/screens/shared/drawer/drawerBody.dart';
 import 'package:blood_donation/screens/shared/drawer/drawerHead.dart';
+import 'package:blood_donation/services/db.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'drawerHeadButton.dart';
 
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({Key? key}) : super(key: key);
@@ -12,6 +17,9 @@ class DrawerWidget extends StatefulWidget {
 class _DrawerWidgetState extends State<DrawerWidget> {
   @override
   Widget build(BuildContext context) {
+    UserModel? _user = Provider.of<UserModel?>(context);
+    DatabaseService _db = DatabaseService(uid: _user!.uid);
+    Future<String> _bloodgroup = _db.sDonor().then((value) => value.bloodGroup);
     return SafeArea(
       child: Drawer(
         child: Container(
@@ -20,7 +28,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           color: Colors.red[400],
           child: Column(
             children: [
-              DrawerHead(),
+              _bloodgroup.toString() == '-' ? DrawerHead() : DrawerHeadButton(),
+
               DrawerBody(),
               // Consumer<DocumentSnapshot>(
               //   builder: (context, a, index) {

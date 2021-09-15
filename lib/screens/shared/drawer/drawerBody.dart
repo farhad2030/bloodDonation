@@ -20,7 +20,7 @@ class _DrawerBodyState extends State<DrawerBody> {
           children: [
             DrawerBodyTile(route: '/', title: 'Home', icon: Icons.home),
             DrawerBodyTile(
-                route: '/',
+                route: 'deleteAccount/',
                 title: 'Delete Account',
                 icon: Icons.delete_forever),
             DrawerBodyTile(

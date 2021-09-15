@@ -1,4 +1,3 @@
-import 'package:blood_donation/model/user.dart';
 import 'package:blood_donation/screens/authentication/authShareWidget.dart';
 import 'package:blood_donation/services/authServices.dart';
 import 'package:flutter/material.dart';

@@ -31,6 +31,11 @@ class DatabaseService {
     });
   }
 
+//delete field
+  Future deleteField(uid) async {
+    donorDataCollection.doc(uid).delete();
+  }
+
 //user list
 
 //data structuring
