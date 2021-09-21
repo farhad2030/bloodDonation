@@ -43,14 +43,17 @@ class DatabaseService {
     List<DonorModel> a = [];
     for (var doc in snapshot.docs.toList()) {
       print('data model test ');
-      a.add(DonorModel(
-          name: doc['name'],
-          phone: doc['phone'],
-          age: doc['age'],
-          bloodGroup: doc['bloodGroup'],
-          gender: doc['gender'],
-          lastDonateDate: doc['lastDonateDate'],
-          address: doc['address']));
+      a.add(
+        DonorModel(
+            name: doc['name'],
+            phone: doc['phone'],
+            age: doc['age'],
+            bloodGroup: doc['bloodGroup'],
+            gender: doc['gender'],
+            lastDonateDate: doc['lastDonateDate'],
+            address: doc['address'],
+            wantDonate: doc['wantDonate']),
+      );
       print(a);
     }
 
@@ -95,7 +98,8 @@ class DatabaseService {
         bloodGroup: event['bloodGroup'],
         gender: event['gender'],
         lastDonateDate: event['lastDonateDate'],
-        address: event['address']));
+        address: event['address'],
+        wantDonate: event['wantDonate']));
   }
 
 //get single donor for entry form
@@ -107,6 +111,7 @@ class DatabaseService {
         bloodGroup: event['bloodGroup'],
         gender: event['gender'],
         lastDonateDate: event['lastDonateDate'],
-        address: event['address']));
+        address: event['address'],
+        wantDonate: event['wantDonate']));
   }
 }

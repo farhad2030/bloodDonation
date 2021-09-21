@@ -11,6 +11,7 @@ class DonorModel {
   final String gender;
   final String lastDonateDate;
   final String address;
+  final bool wantDonate;
 
   DonorModel({
     required this.name,
@@ -20,5 +21,6 @@ class DonorModel {
     required this.gender,
     required this.lastDonateDate,
     required this.address,
+    required this.wantDonate,
   });
 }

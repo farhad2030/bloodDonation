@@ -27,7 +27,8 @@ class _FormBodyState extends State<FormBody> {
       gender: '-',
       bloodGroup: '-',
       address: '-',
-      lastDonateDate: '-');
+      lastDonateDate: '-',
+      wantDonate: false);
 
   List<String> genderOptions = ['Male', 'Female', 'Other', '-'];
   List<String> bloodGroupOptions = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', '-'];
@@ -255,13 +256,14 @@ class _FormBodyState extends State<FormBody> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Colors.red[900]),
                 onPressed: () {
+                  print(isDonate == true ? _lastDonateDate : a.lastDonateDate);
                   if (_formkey.currentState!.validate()) {
-                    print(_nameController.text);
-                    print(_phoneController.text);
-                    print(_ageController.text);
-                    print(_lastDonateDate.toString());
-                    print(_gender);
-                    print(_bloodGroup);
+                    // print(_nameController.text);
+                    // print(_phoneController.text);
+                    // print(_ageController.text);
+                    // print(_lastDonateDate.toString());
+                    // print(_gender);
+                    // print(_bloodGroup);
 
                     _db.updateUserData(
                         _nameController.text,
@@ -269,9 +271,7 @@ class _FormBodyState extends State<FormBody> {
                         _ageController.text,
                         _bloodGroup,
                         _gender,
-                        isDonate == true && _lastDonateDate != '-'
-                            ? _lastDonateDate.toString()
-                            : '-',
+                        isDonate == true ? _lastDonateDate : a.lastDonateDate,
                         _address);
                   }
                 },

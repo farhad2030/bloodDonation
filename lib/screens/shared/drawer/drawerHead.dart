@@ -26,7 +26,8 @@ class _DrawerHeadState extends State<DrawerHead> {
           bloodGroup: '-',
           gender: '-',
           lastDonateDate: '-',
-          address: '-'),
+          address: '-',
+          wantDonate: false),
       child: Container(
         child: Consumer<DonorModel>(builder: (context, a, index) {
           return Column(
@@ -85,6 +86,7 @@ class _DrawerHeadState extends State<DrawerHead> {
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
               Text(a.phone,
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+
               SizedBox(height: 10),
               Align(
                 alignment: Alignment.bottomLeft,

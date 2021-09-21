@@ -28,7 +28,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           color: Colors.red[400],
           child: Column(
             children: [
-              _bloodgroup.toString() == '-' ? DrawerHead() : DrawerHeadButton(),
+              _bloodgroup.toString() == '-' ? DrawerHeadButton() : DrawerHead(),
 
               DrawerBody(),
               // Consumer<DocumentSnapshot>(
