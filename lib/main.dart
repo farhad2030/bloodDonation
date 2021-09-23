@@ -26,35 +26,30 @@ class MyApp extends StatelessWidget {
       create: (BuildContext context) => AuthServices().user,
       initialData: null,
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        color: Colors.red,
-        title: 'blood donation',
-        theme: ThemeData(
-          scaffoldBackgroundColor: Colors.red[400],
-          primarySwatch: Colors.red,
-        ),
-
-        home: Home(
-          title: "home",
-        ),
-        // initialRoute: '/',
-        // routes: {
-        //   '/': (context) => AuthCheck(),
-        //   'login/': (context) => Login(title: 'Login'),
-        //   'home/': (context) => Home(title: 'Flutter Demo Home Page'),
-        //   'register/': (context) => Register(title: 'Register'),
-        //   'entryForm/': (context) => EntryForm(title: 'Entry Form'),
-        //   'authCheck/': (context) => AuthCheck(),
-        //   'forgotPassword/': (context) =>
-        //       ForgotPassword(title: 'Forgot password'),
-        //   'deleteAccount/': (context) => DeleteAccount(
-        //         title: 'Delete Account',
-        //       ),
-        //   'appVersion/': (context) => AppVersion(
-        //         title: 'App version',
-        //       ),
-        // }
-      ),
+          debugShowCheckedModeBanner: false,
+          color: Colors.red,
+          title: 'blood donation',
+          theme: ThemeData(
+            scaffoldBackgroundColor: Colors.red[400],
+            primarySwatch: Colors.red,
+          ),
+          initialRoute: '/',
+          routes: {
+            '/': (context) => AuthCheck(),
+            'login/': (context) => Login(title: 'Login'),
+            'home/': (context) => Home(title: 'Flutter Demo Home Page'),
+            'register/': (context) => Register(title: 'Register'),
+            'entryForm/': (context) => EntryForm(title: 'Entry Form'),
+            'authCheck/': (context) => AuthCheck(),
+            'forgotPassword/': (context) =>
+                ForgotPassword(title: 'Forgot password'),
+            'deleteAccount/': (context) => DeleteAccount(
+                  title: 'Delete Account',
+                ),
+            'appVersion/': (context) => AppVersion(
+                  title: 'App version',
+                ),
+          }),
     );
   }
 }
