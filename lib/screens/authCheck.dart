@@ -14,14 +14,15 @@ class AuthCheck extends StatefulWidget {
 class _AuthCheckState extends State<AuthCheck> {
   @override
   Widget build(BuildContext context) {
-    UserModel? user = Provider.of<UserModel?>(context);
+    UserModel? _user = Provider.of<UserModel?>(context);
 
-    if (user != null) {
+    if (_user != null) {
       print('object:');
-      print(user.uid);
+      print(_user.uid);
       return Home(title: 'Home');
+    } else {
+      print('nulll uid');
+      return Login(title: 'Login');
     }
-    print('nulll uid');
-    return Login(title: 'Login');
   }
 }
