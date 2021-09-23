@@ -172,7 +172,7 @@ class DeleteAccountState extends State<DeleteAccount> {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("AlertDialog"),
-      content: Text("Would you like to continue leaving this grate work !!!! "),
+      content: Text("Are you sure leave us  !!!! "),
       actions: [
         cancelButton,
         continueButton,
