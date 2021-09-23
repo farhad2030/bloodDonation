@@ -21,14 +21,14 @@ class _FormBodyState extends State<FormBody> {
   // ddata.then((value) => a = value);
 
   static DonorModel a = DonorModel(
-      name: '-',
-      phone: '-',
-      age: '-',
-      gender: '-',
-      bloodGroup: '-',
-      address: '-',
-      lastDonateDate: '-',
-      wantDonate: false);
+    name: '-',
+    phone: '-',
+    age: '-',
+    gender: '-',
+    bloodGroup: '-',
+    address: '-',
+    lastDonateDate: '-',
+  );
 
   List<String> genderOptions = ['Male', 'Female', 'Other', '-'];
   List<String> bloodGroupOptions = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', '-'];

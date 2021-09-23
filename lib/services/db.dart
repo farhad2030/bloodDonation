@@ -45,14 +45,14 @@ class DatabaseService {
       print('data model test ');
       a.add(
         DonorModel(
-            name: doc['name'],
-            phone: doc['phone'],
-            age: doc['age'],
-            bloodGroup: doc['bloodGroup'],
-            gender: doc['gender'],
-            lastDonateDate: doc['lastDonateDate'],
-            address: doc['address'],
-            wantDonate: doc['wantDonate']),
+          name: doc['name'],
+          phone: doc['phone'],
+          age: doc['age'],
+          bloodGroup: doc['bloodGroup'],
+          gender: doc['gender'],
+          lastDonateDate: doc['lastDonateDate'],
+          address: doc['address'],
+        ),
       );
       print(a);
     }
@@ -92,26 +92,26 @@ class DatabaseService {
 // get stream single donor for profile
   Stream<DonorModel> get singleDonor {
     return donorDataCollection.doc(uid).snapshots().map((event) => DonorModel(
-        name: event['name'],
-        phone: event['phone'],
-        age: event['age'],
-        bloodGroup: event['bloodGroup'],
-        gender: event['gender'],
-        lastDonateDate: event['lastDonateDate'],
-        address: event['address'],
-        wantDonate: event['wantDonate']));
+          name: event['name'],
+          phone: event['phone'],
+          age: event['age'],
+          bloodGroup: event['bloodGroup'],
+          gender: event['gender'],
+          lastDonateDate: event['lastDonateDate'],
+          address: event['address'],
+        ));
   }
 
 //get single donor for entry form
   Future<DonorModel> sDonor() {
     return donorDataCollection.doc(uid).get().then((event) => DonorModel(
-        name: event['name'],
-        phone: event['phone'],
-        age: event['age'],
-        bloodGroup: event['bloodGroup'],
-        gender: event['gender'],
-        lastDonateDate: event['lastDonateDate'],
-        address: event['address'],
-        wantDonate: event['wantDonate']));
+          name: event['name'],
+          phone: event['phone'],
+          age: event['age'],
+          bloodGroup: event['bloodGroup'],
+          gender: event['gender'],
+          lastDonateDate: event['lastDonateDate'],
+          address: event['address'],
+        ));
   }
 }

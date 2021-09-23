@@ -1,4 +1,5 @@
 import 'package:blood_donation/model/user.dart';
+import 'package:blood_donation/screens/appversion/AppVersion.dart';
 import 'package:blood_donation/screens/authCheck.dart';
 import 'package:blood_donation/screens/authentication/forgotPassword.dart';
 import 'package:blood_donation/screens/authentication/login.dart';
@@ -44,6 +45,9 @@ class MyApp extends StatelessWidget {
                 ForgotPassword(title: 'Forgot password'),
             'deleteAccount/': (context) => DeleteAccount(
                   title: 'Delete Account',
+                ),
+            'appVersion/': (context) => AppVersion(
+                  title: 'App version',
                 ),
           }),
     );

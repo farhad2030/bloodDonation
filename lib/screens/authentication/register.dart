@@ -30,114 +30,117 @@ class _RegisterState extends State<Register> {
       // drawerScrimColor: Colors.green,
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      image: AssetImage(
-                        'assets/images/login_register.png',
-                      ),
-                      fit: BoxFit.fill),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        image: AssetImage(
+                          'assets/images/login_register.png',
+                        ),
+                        fit: BoxFit.fill),
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-              Form(
-                  key: _formkey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Email :'),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          controller: _emailController,
-                          decoration: continputDecoration('Enter your email'),
-                          validator: (val) {
-                            if (val != null) {
-                              if (!val.contains('@'))
-                                return 'Email must contains @ ';
-                            } else if (val == null) return 'Email is required';
-                          },
-                        ),
-                      ),
-                      Text('Password :'),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          controller: _passwordController,
-                          obscureText: true,
-                          decoration:
-                              continputDecoration('Enter your password'),
-                          validator: (val) {
-                            if (val != null) {
-                              if (val.length < 8)
-                                return ' Password must 8 character or large';
-                            } else
-                              return 'password is required';
-                          },
-                        ),
-                      ),
-                      Text(error),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                primary: Colors.red[900]),
-                            onPressed: () {
-                              if (_formkey.currentState!.validate())
-                                setState(() {
-                                  isloding = true;
-                                });
-                              _auth
-                                  .registerWithEmailAndPassword(
-                                      email: _emailController.text,
-                                      password: _passwordController.text)
-                                  .then((value) => {
-                                        setState(() {
-                                          isloding = false;
-                                        }),
-                                        if (value.runtimeType == UserModel)
-                                          {
-                                            Navigator.pushReplacementNamed(
-                                                context, '/'),
-                                            DatabaseService(uid: value.uid)
-                                                .updateUserData('-', '-', '-',
-                                                    '-', '-', '-', '-')
-                                          }
-                                        else
-                                          setState(() {
-                                            print(value);
-                                            error = value.toString();
-                                          })
-                                      });
+                SizedBox(height: 20),
+                Form(
+                    key: _formkey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Email :'),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            controller: _emailController,
+                            decoration: continputDecoration('Enter your email'),
+                            validator: (val) {
+                              if (val != null) {
+                                if (!val.contains('@'))
+                                  return 'Email must contains @ ';
+                              } else if (val == null)
+                                return 'Email is required';
                             },
-                            child: Text('Register'),
                           ),
-                        ],
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(context, 'login/');
-                          },
-                          child: togolText(
-                              'Already have an account? Please login')),
-                      if (isloding == true) ...[
+                        ),
+                        Text('Password :'),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            controller: _passwordController,
+                            obscureText: true,
+                            decoration:
+                                continputDecoration('Enter your password'),
+                            validator: (val) {
+                              if (val != null) {
+                                if (val.length < 8)
+                                  return ' Password must 8 character or large';
+                              } else
+                                return 'password is required';
+                            },
+                          ),
+                        ),
+                        Text(error),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            CircularProgressIndicator(color: Colors.white)
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.red[900]),
+                              onPressed: () {
+                                if (_formkey.currentState!.validate())
+                                  setState(() {
+                                    isloding = true;
+                                  });
+                                _auth
+                                    .registerWithEmailAndPassword(
+                                        email: _emailController.text,
+                                        password: _passwordController.text)
+                                    .then((value) => {
+                                          setState(() {
+                                            isloding = false;
+                                          }),
+                                          if (value.runtimeType == UserModel)
+                                            {
+                                              Navigator.pushReplacementNamed(
+                                                  context, '/'),
+                                              DatabaseService(uid: value.uid)
+                                                  .updateUserData('-', '-', '-',
+                                                      '-', '-', '-', '-')
+                                            }
+                                          else
+                                            setState(() {
+                                              print(value);
+                                              error = value.toString();
+                                            })
+                                        });
+                              },
+                              child: Text('Register'),
+                            ),
                           ],
                         ),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(context, 'login/');
+                            },
+                            child: togolText(
+                                'Already have an account? Please login')),
+                        if (isloding == true) ...[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircularProgressIndicator(color: Colors.white)
+                            ],
+                          ),
+                        ],
                       ],
-                    ],
-                  ))
-            ],
+                    ))
+              ],
+            ),
           ),
         ),
       ),

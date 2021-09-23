@@ -111,31 +111,34 @@ class _HomeState extends State<Home> {
                 margin: EdgeInsets.symmetric(vertical: 7),
                 child: Form(
                     child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      height: 30,
-                      width: 290,
-                      child: Container(
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: Colors.red[300],
-                          borderRadius: BorderRadius.circular(32),
-                        ),
-                        child: Center(
-                          child: TextFormField(
-                            onChanged: (val) {
-                              _findDonor(val);
-                              print('search Text :$searchText');
-                            },
-                            style: TextStyle(
-                              fontSize: 15,
-                            ),
-                            decoration: InputDecoration(
-                              hintStyle: TextStyle(fontSize: 17),
-                              hintText: 'Bloodgroup or division',
-                              suffixIcon: Icon(Icons.search),
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.all(8),
+                    Center(
+                      child: SizedBox(
+                        height: 30,
+                        width: 290,
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Colors.red[300],
+                            borderRadius: BorderRadius.circular(32),
+                          ),
+                          child: Center(
+                            child: TextFormField(
+                              onChanged: (val) {
+                                _findDonor(val);
+                                print('search Text :$searchText');
+                              },
+                              style: TextStyle(
+                                fontSize: 15,
+                              ),
+                              decoration: InputDecoration(
+                                hintStyle: TextStyle(fontSize: 17),
+                                hintText: 'Bloodgroup or division',
+                                suffixIcon: Icon(Icons.search),
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.all(8),
+                              ),
                             ),
                           ),
                         ),

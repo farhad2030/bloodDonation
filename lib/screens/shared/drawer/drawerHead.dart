@@ -20,19 +20,20 @@ class _DrawerHeadState extends State<DrawerHead> {
     return StreamProvider<DonorModel>(
       create: (_) => _db.singleDonor,
       initialData: DonorModel(
-          name: '-',
-          phone: '-',
-          age: '-',
-          bloodGroup: '-',
-          gender: '-',
-          lastDonateDate: '-',
-          address: '-',
-          wantDonate: false),
+        name: '-',
+        phone: '-',
+        age: '-',
+        bloodGroup: '-',
+        gender: '-',
+        lastDonateDate: '-',
+        address: '-',
+      ),
       child: Container(
         child: Consumer<DonorModel>(builder: (context, a, index) {
           return Column(
             children: [
               Container(
+                margin: EdgeInsets.only(top: 10),
                 height: 80,
                 width: 80,
                 child: Stack(

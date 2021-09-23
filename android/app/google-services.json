@@ -1,62 +1,33 @@
 {
   "project_info": {
-    "project_number": "992309391395",
-    "project_id": "blooddonatin-a878d",
-    "storage_bucket": "blooddonatin-a878d.appspot.com"
+    "project_number": "769995606418",
+    "project_id": "blood-donation-7a340",
+    "storage_bucket": "blood-donation-7a340.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:992309391395:android:c10634585a166d2fd5c196",
-        "android_client_info": {
-          "package_name": "com.example.blood_donate"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "992309391395-egcfc7nrqfbbjlkshpk1o9b7b9is6jum.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyABT4HkL1Au47SvGwqaT4lTf5TbZs87AJM"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "992309391395-egcfc7nrqfbbjlkshpk1o9b7b9is6jum.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:992309391395:android:a7414476d411e952d5c196",
+        "mobilesdk_app_id": "1:769995606418:android:cff0759624903e4a58194b",
         "android_client_info": {
           "package_name": "com.example.blood_donation"
         }
       },
       "oauth_client": [
         {
-          "client_id": "992309391395-egcfc7nrqfbbjlkshpk1o9b7b9is6jum.apps.googleusercontent.com",
+          "client_id": "769995606418-psv3g1ru3csnia5pii00ugoqq1hvrgku.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyABT4HkL1Au47SvGwqaT4lTf5TbZs87AJM"
+          "current_key": "AIzaSyDO2S5ipV1x3KFsmRVowyJHEomWVIQgC1w"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "992309391395-egcfc7nrqfbbjlkshpk1o9b7b9is6jum.apps.googleusercontent.com",
+              "client_id": "769995606418-psv3g1ru3csnia5pii00ugoqq1hvrgku.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
