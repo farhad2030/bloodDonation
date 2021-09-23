@@ -14,7 +14,7 @@ class AuthCheck extends StatefulWidget {
 class _AuthCheckState extends State<AuthCheck> {
   @override
   Widget build(BuildContext context) {
-    final UserModel? user = Provider.of<UserModel?>(context);
+    UserModel? user = Provider.of<UserModel?>(context);
 
     if (user != null) {
       print('object:');
