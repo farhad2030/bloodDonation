@@ -22,8 +22,8 @@ jobs:
       with:
         channel: 'dev'
     - run: flutter pub get
-    - name: 'Run Test(s)'
-      run: flutter test
+    # - name: 'Run Test(s)'
+    #   run: flutter test
     - name: 'Build Demo Apk'
       run: flutter clean && flutter build apk --target lib/main_demo.dart --target-platform android-arm --flavor demo
     - name: 'Upload Apk'
