@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: Colors.red[400],
             primarySwatch: Colors.red,
           ),
-          initialRoute: '/',
+          // initialRoute: '/',
           routes: {
             '/': (context) => AuthCheck(),
             'login/': (context) => Login(title: 'Login'),
