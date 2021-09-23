@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         ),
 
         home: Home(
-          title: "home",
+          title: "home change",
         ),
         // initialRoute: '/',
         // routes: {
