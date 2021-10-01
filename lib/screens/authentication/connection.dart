@@ -26,6 +26,7 @@ class _ConectionState extends State<Conection> {
 
   @override
   Widget build(BuildContext context) {
+  checkConection()
     if (_isconnected == "0") {
       return Container(
         child: Text("No connection"),
