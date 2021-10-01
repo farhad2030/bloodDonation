@@ -31,11 +31,17 @@ dependencies:
   # firebase_auth: ^0.18.0+1
   # cloud_firestore: "^0.14.0+2"
   # firebase_core: "0.5.0"
-  firebase_core: ^1.6.0 #firebase services
-  firebase_auth: ^3.1.0 #firebase authentication
+
+  ##
+  # firebase_core: ^1.6.0 #firebase services
+  firebase_core: ^1.7.0
+  # firebase_auth: ^3.1.0 #firebase authentication
+  firebase_auth: ^3.1.2
+  
   cloud_firestore: ^2.5.1 #firestor database
   provider: ^6.0.0 #state management
   intl: ^0.17.0 #formet time
+  connectivity: ^3.0.0-nullsafety
 
 dev_dependencies:
   flutter_test:

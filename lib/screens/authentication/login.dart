@@ -1,5 +1,6 @@
 import 'package:blood_donation/model/user.dart';
 import 'package:blood_donation/screens/authentication/authShareWidget.dart';
+import 'package:blood_donation/screens/authentication/connection.dart';
 import 'package:blood_donation/services/authServices.dart';
 import 'package:flutter/material.dart';
 
@@ -47,6 +48,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(height: 20),
+                Conection(),
                 Form(
                   key: _formkey,
                   child: Column(
