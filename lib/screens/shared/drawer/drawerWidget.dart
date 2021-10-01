@@ -19,7 +19,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
   Widget build(BuildContext context) {
     UserModel? _user = Provider.of<UserModel?>(context);
     DatabaseService _db = DatabaseService(uid: _user!.uid);
-    Future<String> _bloodgroup = _db.sDonor().then((value) => value.bloodGroup);
+    Future<String> _bloodgroup =
+        // String _bloodgroup = "-";
+        _db.sDonor().then((value) => value.bloodGroup
+            // print("blood group of value ${value.bloodGroup}")
+
+            );
+    print("blood Group $_bloodgroup");
+
     return SafeArea(
       child: Drawer(
         child: Container(
@@ -28,7 +35,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           color: Colors.red[400],
           child: Column(
             children: [
-              _bloodgroup.toString() == '-' ? DrawerHeadButton() : DrawerHead(),
+              // _bloodgroup == '-' ? DrawerHeadButton() : DrawerHead(),
+              FutureBuilder<String>(
+                future: _bloodgroup,
+                initialData: "-",
+                builder: (context, data) {
+                  return data.data == "-" ? DrawerHeadButton() : DrawerHead();
+                },
+              ),
 
               DrawerBody(),
               // Consumer<DocumentSnapshot>(

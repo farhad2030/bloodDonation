@@ -65,8 +65,7 @@ class _FormBodyState extends State<FormBody> {
     }();
   }
 
-  String _lastDonateDate =
-      a.lastDonateDate == '-' ? DateTime.now().toString() : a.lastDonateDate;
+  String _lastDonateDate = a.lastDonateDate == '-' ? '-' : a.lastDonateDate;
 
   TextEditingController _nameController =
       TextEditingController(text: a.name == '-' ? null : a.name);
@@ -239,7 +238,7 @@ class _FormBodyState extends State<FormBody> {
                   title: Text(
 
                       //
-                      a.lastDonateDate == "-"
+                      _lastDonateDate == "-"
                           ? 'Select Date'
                           : DateFormat('dd MMMM yyyy') //hh:mm a//
                               .format(DateTime.parse(_lastDonateDate))),

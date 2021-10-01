@@ -1,5 +1,5 @@
-import "package:flutter/material.dart";
 import 'package:connectivity/connectivity.dart';
+import "package:flutter/material.dart";
 
 class Conection extends StatefulWidget {
   const Conection({Key? key}) : super(key: key);
@@ -9,36 +9,54 @@ class Conection extends StatefulWidget {
 }
 
 class _ConectionState extends State<Conection> {
-  String _isconnected = "0";
-
-  checkConection() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile) {
-      // I am connected to a mobile network.
-      return _isconnected = "1";
-    } else if (connectivityResult == ConnectivityResult.wifi) {
-      // I am connected to a wifi network.
-      return _isconnected = "2";
-    } else {
-      return _isconnected = "0";
-    }
-  }
-
+  String _isconnected = "2";
   @override
   Widget build(BuildContext context) {
-  checkConection()
-    if (_isconnected == "0") {
-      return Container(
-        child: Text("No connection"),
-      );
-    } else if (_isconnected == "1") {
-      return Container(
-        child: Text("Mobile connection"),
-      );
-    } else {
-      return Container(
-        child: Text("Wifi connection"),
-      );
+    checkConection() async {
+      print("call connection");
+      var connectivityResult = await (Connectivity().checkConnectivity());
+      if (connectivityResult == ConnectivityResult.mobile) {
+        // I am connected to a mobile network.
+        _isconnected = "1";
+        setState(() {
+          
+        });
+        print("mobile connection");
+      } else if (connectivityResult == ConnectivityResult.wifi) {
+        // I am connected to a wifi network.
+        _isconnected = "2";
+        setState(() {
+          
+        });
+        print("wifi connection");
+      } else {
+        _isconnected = "0";
+        setState(() {
+          
+        });
+        print("no connection");
+      }
     }
+
+    return Container(
+      child: Column(
+        children: [
+          _isconnected == "1"
+              ? Text("Mobile connected")
+              : _isconnected == "2"
+                  ? Text("Wifi connected")
+                  : Text("no connection"),
+//                   if(_isconnected=="1"){
+//  Text("Mobile connected")
+//                   } else if(_isconnected=="2"){
+//  Text("Wifi connected")
+//                   }else{
+//  Text("no connection"),
+//                   }
+          ElevatedButton(
+              onPressed: checkConection, child: Text("check connection")),
+        ],
+      ),
+    );
   }
 }
