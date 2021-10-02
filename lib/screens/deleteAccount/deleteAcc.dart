@@ -74,6 +74,7 @@ class DeleteAccountState extends State<DeleteAccount> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
+                            obscureText: true,
                           controller: _passwordController,
                           decoration:
                               continputDecoration('Enter your password'),

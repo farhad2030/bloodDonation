@@ -1,6 +1,5 @@
 import 'package:blood_donation/model/user.dart';
 import 'package:blood_donation/screens/authentication/authShareWidget.dart';
-import 'package:blood_donation/screens/authentication/connection.dart';
 import 'package:blood_donation/services/authServices.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +47,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(height: 20),
-                Conection(),
+                // Conection(),
                 Form(
                   key: _formkey,
                   child: Column(
@@ -75,6 +74,7 @@ class _LoginState extends State<Login> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
+                          obscureText: true,
                           controller: _passwordController,
                           decoration:
                               continputDecoration('Enter your password'),
@@ -142,7 +142,7 @@ class _LoginState extends State<Login> {
                                 context, 'register/');
                           },
                           child: togolText(
-                              'Already have an account? Please login')),
+                              'Don`t have an account? Please register first ')),
                       TextButton(
                           onPressed: () {
                             Navigator.pushReplacementNamed(
